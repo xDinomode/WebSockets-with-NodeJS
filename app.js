@@ -1,17 +1,25 @@
 var fs = require("fs");
 var http = require("http");
-var https = require("https");
-var privateKey = fs.readFileSync("./ssl/server.key", "utf8");
-var certificate = fs.readFileSync("./ssl/server.crt", "utf8");
+
+
+//HTTPS place keys/certificate in ssl folder and uncomment lines
+//var https = require("https");
+//var privateKey = fs.readFileSync("./ssl/server.key", "utf8");
+//var certificate = fs.readFileSync("./ssl/server.crt", "utf8");
+
 
 var bodyParser = require("body-parser");
 
-var credentials = {key: privateKey, cert: certificate};
+//HTTPS uncomment this one also for https
+//var credentials = {key: privateKey, cert: certificate};
+
 var express = require("express");
 var app = express();
 
 var httpServer = http.createServer(app);
-var httpsServer = https.createServer(credentials, app);
+
+//HTTPS and this one
+//var httpsServer = https.createServer(credentials, app);
 
 var io = require("socket.io")(httpServer);
 
@@ -48,4 +56,6 @@ app.use("*", function(req, res){
 });
 
 httpServer.listen(80);
-httpsServer.listen(443);
+
+//HTTPS also this line
+//httpsServer.listen(443);
